@@ -33,5 +33,16 @@
   (let [word (:word stemmer), j (inc (get-index stemmer))]
     (subvec word 0 j)))
 
+(defn index-char
+  "This returns the index-char character in the word."
+  [stemmer]
+  (nth (:word stemmer) (get-index stemmer)))
+
+(defn pop-word
+  "This returns the stemmer with one character popped from the end of the list."
+  [stemmer]
+  (assoc stemmer :word (pop (:word stemmer))))
+
+
 
 (def word (struct stemmer (vec "foobar")))

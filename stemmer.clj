@@ -43,6 +43,24 @@
   [stemmer]
   (assoc stemmer :word (pop (:word stemmer))))
 
+(defn pop-stemmer-on
+  "This is an amalgam of a number of
+  different functions: pop (it walks
+  through the :word sequence using pop);
+  drop-while (it drops items off while
+  testing the sequence against drop-while);
+  and maplist from Common Lisp (the
+  predicate is tested against the entire
+  current stemmer, not just the first
+  element)."
+  [predicate stemmer]
+  (if (and (seq (:word stemmer)) (predicate stemmer))
+    (recur predicate (pop-word stemmer))
+    stemmer))
+  
+
+(def vowel-letter? #{\a \e \i \o \u})
+
 
 
 (def word (struct stemmer (vec "foobar")))
